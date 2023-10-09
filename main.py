@@ -12,6 +12,16 @@ def read_ensemble_from_file(filename):
       dict = {}
       a=f.readline().split(' ')
       b = f.readline().split(' ')
+      # проверка на то что символ допустим
+      for i in range(0,len(b)):
+         if b[i] not in "+-*/=":
+            sys.exit('the symbol is invalid')
+      # проверка на то что вероятности заданы корректно
+      for i in range(0,len(a)):
+         print(a[i])
+         for j in range(0,len(a[i])):
+            if a[i][j] not in "01234567890.\n":
+               sys.exit('the probability is not set correctly')
       for i in range(0,len(a)):
          a[i]=float(a[i])
          dict[b[i]] = a[i]
@@ -100,6 +110,7 @@ def get_code_table(koef1,sym_len):
       bin_elem = str(Binary(koef1[i]))
       indx = bin_elem.find('.')+1
       bin_elem = bin_elem[indx:]
+
       if len(bin_elem)>=sym_len[i]:
          arr[i]=bin_elem[:sym_len[i]]
       else:
@@ -244,5 +255,5 @@ def word_encoding(ensemble_filename,code_word_filename):
    writing_to_file("encod_word",result)
    return result
 
-print(word_coding(read_word_from_file("word.txt"),Use_Gilbert_Moore("Prob_3.txt")))
-# word_encoding("1.txt",'result.txt')
+# print(word_coding(read_word_from_file("word.txt"),Use_Gilbert_Moore("uncorrectly_data")))
+# # word_encoding("1.txt",'result.txt')
